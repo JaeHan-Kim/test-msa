@@ -1,0 +1,171 @@
+buildscript {
+    ext {
+        springBootVersion = '2.2.8.RELEASE'
+        querydslPluginVersion = "1.0.10"
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" } // plugin 저장소
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.7.RELEASE"
+        classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVersion}")
+    }
+}
+
+def querydslProjects = [
+    project(":api-member"),
+]
+
+configure(querydslProjects) {
+
+    apply plugin: "com.ewerk.gradle.plugins.querydsl"
+
+    def querydslSrcDir = 'src/main/generated'
+
+    querydsl {
+        library = "com.querydsl:querydsl-apt"
+        jpa = true
+        querydslSourcesDir = querydslSrcDir
+    }
+
+    compileQuerydsl{
+        options.annotationProcessorPath = configurations.querydsl
+    }
+    
+    configurations {
+        querydsl.extendsFrom compileClasspath
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/main/java', querydslSrcDir]
+            }
+        }
+    }
+    
+    tasks.withType(JavaCompile) {
+        options.annotationProcessorGeneratedSourcesDirectory = file(querydslSrcDir)
+    }
+   
+   
+}
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "eclipse"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+
+    group = "com.test"
+    version = "0.0.1-SNAPSHOT"
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        developmentOnly
+        runtimeClasspath {
+            extendsFrom developmentOnly
+        }
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    ext {
+        set("springCloudVersion", "Hoxton.SR4")
+    }
+
+
+    task initSourceFolders {
+        sourceSets*.java.srcDirs*.each {
+            if( !it.exists() ) {
+                it.mkdirs()
+            }
+        }
+
+        sourceSets*.resources.srcDirs*.each {
+            if( !it.exists() ) {
+                it.mkdirs()
+            }
+        }
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok"
+        annotationProcessor "org.projectlombok:lombok"
+        implementation "org.apache.commons:commons-lang3:3.9"
+    }
+
+    // project 별로 의존 라이브러리 구성을 설정
+    if (project.name.equals("api-domain")) {
+        dependencies {
+            testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.2"
+        }
+    } else {
+        dependencies {
+            implementation "org.springframework.boot:spring-boot-starter-actuator"
+            developmentOnly "org.springframework.boot:spring-boot-devtools"
+            testImplementation("org.springframework.boot:spring-boot-starter-test") {
+                exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+            }
+        }
+    }
+    
+    test {
+        useJUnitPlatform()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+}
+
+project (":api-common") {
+    dependencies {
+        //implementation (project (":api-domain"))
+        ///implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+        implementation "org.springframework.boot:spring-boot-starter-web"
+        //implementation "org.postgresql:postgresql"
+    }
+}
+
+project (":api-domain") {
+    dependencies {
+    }
+}
+
+project (":api-geteway") {
+    dependencies {
+    }
+}
+
+project (":api-member") {
+    dependencies {
+        implementation (project (":api-domain"))
+        implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+        implementation "org.springframework.boot:spring-boot-starter-web"
+        implementation "org.postgresql:postgresql"
+        implementation "com.querydsl:querydsl-jpa"
+        implementation "com.querydsl:querydsl-apt"
+        implementation "com.querydsl:querydsl-core"
+        implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
+        implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
+    }
+}
+
+project (":api-service-discovery") {
+    dependencies {
+        implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server"
+        implementation "io.micrometer:micrometer-registry-prometheus"
+    }
+}

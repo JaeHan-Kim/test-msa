@@ -1,0 +1,6 @@
+rootProject.name = "test-msa"
+include "api-common"
+include "api-domain"
+include "api-geteway"
+include "api-service-discovery"
+include "api-member"

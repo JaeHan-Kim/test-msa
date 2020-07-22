@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: msa-member-api
+  datasource:
+    url: jdbc:postgresql://211.239.124.243:12104/member?currentSchema=member
+    username: postgres
+    password: vivakjh2
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        #show_sql: true
+        format_sql: true
+logging:
+  level:
+    org.hibernate.SQL: debug
+    oeg.hibernate.type: trace
+server:
+  port: 8100
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncrptor

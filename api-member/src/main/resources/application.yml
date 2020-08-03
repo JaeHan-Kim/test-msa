@@ -2,9 +2,9 @@ spring:
   application:
     name: msa-member-api
   datasource:
-    url: jdbc:postgresql://211.239.124.243:12104/member?currentSchema=member
-    username: postgres
-    password: vivakjh2
+    url: ENC(6cKij6/UvkTIIwti6lMG3EEExhteUN35ZWWafn+PnV/TQqF+aI/1RBMMSd7s6mfFVcbmTB9TPSL3SOVhHrP4oiFyaDVliLTHoHXb8N4+Pq8=)
+    username: ENC(6kasPgVaLWeVkhd4ldEtaIAwJFiMvIV9)
+    password: ENC(eiZ5vp3vIT7JzViJOT8XYZRLdQ+JyXg7)
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

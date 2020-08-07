@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: msa-system-api
+  datasource:
+    url: ENC(dpry0DSEFxAlZYGCMmRQOd3X4LNVh+GV5j/G8C0ThUap/Zew52Lf49ylW4bhF0mEJQT/PsxWmgHDvrCXBAi2ZFejKc0b6qQ75ltWi7NGZpQ=)
+    username: ENC(6kasPgVaLWeVkhd4ldEtaIAwJFiMvIV9)
+    password: ENC(eiZ5vp3vIT7JzViJOT8XYZRLdQ+JyXg7)
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        #show_sql: true
+        format_sql: true
+logging:
+  level:
+    org.hibernate.SQL: debug
+    oeg.hibernate.type: trace
+server:
+  port: 8900
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncrptor

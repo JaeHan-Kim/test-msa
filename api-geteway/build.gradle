@@ -1,0 +1,20 @@
+    version = "0.0.5"
+    jib {
+        from {
+            image = "docker://amazoncorretto:8"
+        }
+        to {
+            image = "kijaha/api-gateway"
+            tags = ["${project.version}".toString()]
+            credHelper = "pass"
+        }
+        container {
+            mainClass = "com.test.geteway.MsaApiGetewayApplication"
+            ports = ["8090"]
+            volumes = ["/tmp"]
+            creationTime = "USE_CURRENT_TIMESTAMP"
+        }
+    }
+    dependencies {
+        implementation "org.springframework.cloud:spring-cloud-starter-netflix-zuul"
+    }

@@ -13,7 +13,9 @@ buildscript {
         classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVersion}")
     }
 }
-
+plugins {
+    id 'com.google.cloud.tools.jib' version '2.5.0' apply false
+}
 def querydslProjects = [
     project(":api-member"),
 ]
@@ -58,9 +60,10 @@ subprojects {
     apply plugin: "eclipse"
     apply plugin: "org.springframework.boot"
     apply plugin: "io.spring.dependency-management"
+    apply plugin: "com.google.cloud.tools.jib"
 
     group = "com.test"
-    version = "0.0.1-SNAPSHOT"
+    version = "0.0.2-SNAPSHOT"
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -143,13 +146,30 @@ project (":api-domain") {
     dependencies {
     }
 }
-
+/*
 project (":api-geteway") {
+    version = "0.0.3"
+    jib {
+        from {
+            image = "docker://amazoncorretto:8"
+        }
+        to {
+            image = "kijaha/api-gateway"
+            tags = ["${project.version}".toString()]
+            credHelper = "pass"
+        }
+        container {
+            mainClass = "com.test.geteway.MsaApiGetewayApplication"
+            ports = ["8090"]
+            volumes = ["/tmp"]
+            creationTime = "USE_CURRENT_TIMESTAMP"
+        }
+    }
     dependencies {
         implementation "org.springframework.cloud:spring-cloud-starter-netflix-zuul"
     }
 }
-
+*/
 project (":api-member") {
     dependencies {
         implementation (project (":api-domain"))

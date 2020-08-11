@@ -1,10 +1,10 @@
-    version = "0.0.5"
+    version = "0.0.6"
     jib {
         from {
             image = "docker://amazoncorretto:8"
         }
         to {
-            image = "kijaha/api-gateway"
+            image = "097982475635.dkr.ecr.ap-northeast-2.amazonaws.com/test-msa/api-gateway"
             tags = ["${project.version}".toString()]
             credHelper = "pass"
         }

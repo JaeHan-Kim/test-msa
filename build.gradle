@@ -17,7 +17,7 @@ plugins {
     id 'com.google.cloud.tools.jib' version '2.5.0' apply false
 }
 def querydslProjects = [
-    project(":api-member"),
+    project(":api-member"), project(":api-system")
 ]
 
 configure(querydslProjects) {
@@ -51,8 +51,6 @@ configure(querydslProjects) {
     tasks.withType(JavaCompile) {
         options.annotationProcessorGeneratedSourcesDirectory = file(querydslSrcDir)
     }
-   
-   
 }
 
 subprojects {
@@ -138,6 +136,7 @@ project (":api-common") {
         //implementation (project (":api-domain"))
         ///implementation "org.springframework.boot:spring-boot-starter-data-jpa"
         implementation "org.springframework.boot:spring-boot-starter-web"
+        implementation "org.owasp.encoder:encoder:1.2.2"
         //implementation "org.postgresql:postgresql"
     }
 }
@@ -186,6 +185,7 @@ project (":api-member") {
 
 project (":api-system") {
     dependencies {
+        implementation (project (":api-common"))
         // 추후 공통으로 이동 필요
         implementation "org.modelmapper:modelmapper:2.3.7"
         implementation "org.springframework.boot:spring-boot-starter-data-jpa"

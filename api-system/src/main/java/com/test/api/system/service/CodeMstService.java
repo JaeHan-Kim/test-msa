@@ -11,11 +11,17 @@ import lombok.RequiredArgsConstructor;
 import static com.test.api.system.utils.ObjectMapperUtils.map;
 import static com.test.api.system.utils.ObjectMapperUtils.mapList;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CodeMstService {
 
 	private final CodeMstRepository codeMstRepository;
+
+	public List<CodeMstDto> getCodeMsts() {
+		return codeMstRepository.findbyCodeMsts();
+	}
 
 	public CodeMstDto createCodeMst(CodeMstDto data) {
 		

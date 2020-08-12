@@ -1,3 +1,5 @@
+header:
+  access-key: dml2YWtqaDI=
 spring:
   application:
     name: msa-system-api

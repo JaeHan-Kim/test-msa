@@ -8,6 +8,7 @@ import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,8 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.test.common.filter.HeaderCheckFilter;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -24,8 +27,16 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootApplication
 public class ApiSystemApplication {
 	
+    @Value("${header.access-key}")
+    private String accessKey;
+    
 	public static void main(String[] args) {
 		SpringApplication.run(ApiSystemApplication.class, args);
+	}
+	
+	@Bean
+	public HeaderCheckFilter headerCheckFilter() {
+		return new HeaderCheckFilter(accessKey);
 	}
 	
 	@Bean("jasyptStringEncrptor")

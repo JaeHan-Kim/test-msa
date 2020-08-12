@@ -1,6 +1,8 @@
 spring:
   application:
     name: msa-api-gateway
+header:
+  access-key: dml2YWtqaDI=
 eureka:
   instance:
     instance-id: zuul-inst001
@@ -14,4 +16,8 @@ zuul:
     msa-member-api:
       path: /api/member/**
       url: http://localhost:8100
+      stripPrefix: false
+    msa-system-api:
+      path: /api/system/**
+      url: http://localhost:8900
       stripPrefix: false

@@ -1,0 +1,21 @@
+version = "0.0.1"
+jib {
+    from {
+        image = "docker://amazoncorretto:8"
+    }
+    to {
+        image = "097982475635.dkr.ecr.ap-northeast-2.amazonaws.com/test-msa/service-discovery"
+        tags = ["${project.version}".toString()]
+        credHelper = "pass"
+    }
+    container {
+        mainClass = "com.test.eureka.EurekaServerApplication"
+        ports = ["8761"]
+        volumes = ["/tmp"]
+        creationTime = "USE_CURRENT_TIMESTAMP"
+    }
+}
+dependencies {
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server"
+    implementation "io.micrometer:micrometer-registry-prometheus"
+}

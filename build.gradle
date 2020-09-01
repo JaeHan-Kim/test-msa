@@ -17,7 +17,7 @@ plugins {
     id 'com.google.cloud.tools.jib' version '2.5.0' apply false
 }
 def querydslProjects = [
-    project(":api-member"), project(":api-system")
+    project(":api-member"), project(":api-system")/*, project(":api-auth")*/
 ]
 
 configure(querydslProjects) {
@@ -206,3 +206,17 @@ project (":api-service-discovery") {
     }
 }
 */
+
+project (":api-auth") {
+    dependencies {
+        implementation "org.springframework.boot:spring-boot-starter-web"
+        implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+        implementation "com.querydsl:querydsl-jpa"
+        implementation "com.querydsl:querydsl-apt"
+        implementation "com.querydsl:querydsl-core"
+        runtimeOnly "com.h2database:h2"
+        implementation "org.springframework.cloud:spring-cloud-starter-oauth2"
+        implementation "org.springframework.cloud:spring-cloud-starter-security"
+        implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
+    }
+}

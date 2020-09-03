@@ -33,12 +33,12 @@ public class ApiSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiSystemApplication.class, args);
 	}
-	
+	/*
 	@Bean
 	public HeaderCheckFilter headerCheckFilter() {
 		return new HeaderCheckFilter(accessKey);
 	}
-	
+	*/
 	@Bean("jasyptStringEncrptor")
 	public StringEncryptor stringEncryptor() {
 		PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();

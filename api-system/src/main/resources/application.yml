@@ -22,6 +22,15 @@ logging:
 server:
   port: 8900
 
+security:
+  oauth2:
+    client:
+      client-id: auth_id
+      client-secret: auth_secret
+    resource:
+      jwt:
+        key-value: jwt_secret_key
+
 jasypt:
   encryptor:
     bean: jasyptStringEncrptor

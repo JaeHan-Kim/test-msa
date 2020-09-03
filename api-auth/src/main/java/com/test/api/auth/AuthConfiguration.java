@@ -19,7 +19,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 
 @Configuration
 @EnableAuthorizationServer
-@SpringBootApplication
 public class AuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
 	@Autowired
@@ -40,7 +39,6 @@ public class AuthConfiguration extends AuthorizationServerConfigurerAdapter {
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.withClientDetails(clientDetailsService);
-		super.configure(clients);
 	}
 	
 	@Bean

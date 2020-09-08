@@ -11,7 +11,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 server:
   port: 8090
+
 zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
   routes:
     msa-member-api:
       path: /api/member/**
@@ -21,3 +23,12 @@ zuul:
       path: /api/system/**
       url: http://localhost:8900
       stripPrefix: false
+
+security:
+  oauth2:
+    client:
+      client-id: auth_id
+      client-secret: auth_secret
+    resource:
+      jwt:
+        key-value: jwt_secret_key

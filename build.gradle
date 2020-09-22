@@ -103,6 +103,8 @@ subprojects {
         compileOnly "org.projectlombok:lombok"
         annotationProcessor "org.projectlombok:lombok"
         implementation "org.apache.commons:commons-lang3:3.9"
+        implementation "net.logstash.logback:logstash-logback-encoder:6.4"
+        
     }
 
     // project 별로 의존 라이브러리 구성을 설정
@@ -179,6 +181,7 @@ project (":api-member") {
         implementation "com.querydsl:querydsl-apt"
         implementation "com.querydsl:querydsl-core"
         implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
+        implementation "org.springframework.cloud:spring-cloud-starter-zipkin"
         implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
     }
 }
@@ -197,6 +200,8 @@ project (":api-system") {
         implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
         implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
         implementation "org.springframework.cloud:spring-cloud-starter-oauth2"
+        implementation "org.springframework.cloud:spring-cloud-starter-zipkin"
+        implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
     }
 }
 /*

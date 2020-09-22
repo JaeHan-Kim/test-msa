@@ -6,13 +6,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -23,6 +23,7 @@ import com.test.common.filter.HeaderCheckFilter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
 public class ApiSystemApplication {
@@ -39,6 +40,7 @@ public class ApiSystemApplication {
 		return new HeaderCheckFilter(accessKey);
 	}
 	*/
+	
 	@Bean("jasyptStringEncrptor")
 	public StringEncryptor stringEncryptor() {
 		PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();

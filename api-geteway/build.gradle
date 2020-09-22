@@ -18,4 +18,5 @@ jib {
 dependencies {
     implementation "org.springframework.cloud:spring-cloud-starter-netflix-zuul"
     implementation "org.springframework.cloud:spring-cloud-starter-oauth2"
+    implementation "org.springframework.cloud:spring-cloud-starter-zipkin"
 }

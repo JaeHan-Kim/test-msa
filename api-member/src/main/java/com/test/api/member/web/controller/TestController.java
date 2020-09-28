@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.api.member.dto.MemberDto;
-import com.test.api.member.entity.Member;
 
 import lombok.extern.slf4j.Slf4j;
 

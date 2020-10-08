@@ -12,6 +12,11 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class ApiMemberApplication {
 	
+	@Bean
+	public HeaderCheckFilter2 headerCheckFilter() {
+		return new HeaderCheckFilter2();
+	}
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ApiMemberApplication.class, args);
 	}

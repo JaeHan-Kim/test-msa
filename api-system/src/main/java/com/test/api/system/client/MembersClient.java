@@ -2,10 +2,11 @@ package com.test.api.system.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name="member", url="http://localhost:8100")
+@FeignClient(name="MSA-MEMBER-API")
 public interface MembersClient {
 	
 	@GetMapping("/api/member/members")
-	String getMembers();
+	String getMembers(@RequestHeader("TEST-HEADER") String tHeader);
 }

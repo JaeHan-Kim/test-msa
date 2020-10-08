@@ -32,7 +32,7 @@ public class CodeRestController {
 	@PostMapping("/test")
 	public String setReview() {
 		
-		String retur = membersClient.getMembers();
+		String retur = membersClient.getMembers("test!");
 		log.info("{}", retur);
 		// set new Review
 		//writeReviewSource.writeReview().send(MessageBuilder.withPayload("1").build());
